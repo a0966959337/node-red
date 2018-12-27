@@ -1,0 +1,88 @@
+[
+    {
+        "id": "b238f718.4070c8",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "71514e99.7a68b",
+        "type": "inject",
+        "z": "b238f718.4070c8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "7f471787.52beb8"
+            ]
+        ]
+    },
+    {
+        "id": "7f471787.52beb8",
+        "type": "function",
+        "z": "b238f718.4070c8",
+        "name": "Payload",
+        "func": "[{\"id\":\"77351328.cdea8c\",\"type\":\"tab\",\"label\":\"Flow 1\",\"disabled\":false,\"info\":\"\"},{\"id\":\"16d1e7a0.f991b8\",\"type\":\"rpi-gpio out\",\"z\":\"77351328.cdea8c\",\"name\":\"Green LED\",\"pin\":\"11\",\"set\":true,\"level\":\"0\",\"freq\":\"\",\"out\":\"out\",\"x\":670,\"y\":140,\"wires\":[]},{\"id\":\"2a039013.a32c1\",\"type\":\"debug\",\"z\":\"77351328.cdea8c\",\"name\":\"\",\"active\":true,\"tosidebar\":true,\"console\":false,\"tostatus\":false,\"complete\":\"payload\",\"x\":470,\"y\":20,\"wires\":[]},{\"id\":\"d15eae7e.fd4dd\",\"type\":\"switch\",\"z\":\"77351328.cdea8c\",\"name\":\"if input is 1\",\"property\":\"payload\",\"propertyType\":\"msg\",\"rules\":[{\"t\":\"eq\",\"v\":\"1\",\"vt\":\"str\"},{\"t\":\"else\"}],\"checkall\":\"true\",\"repair\":false,\"outputs\":2,\"x\":270,\"y\":180,\"wires\":[[\"b2602b48.623c78\"],[\"cd522d0d.3c9f8\"]]},{\"id\":\"b2602b48.623c78\",\"type\":\"change\",\"z\":\"77351328.cdea8c\",\"name\":\"change to 0\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"0\",\"tot\":\"str\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":470,\"y\":80,\"wires\":[[\"16d1e7a0.f991b8\"]]},{\"id\":\"99589dc5.fb58\",\"type\":\"rpi-gpio in\",\"z\":\"77351328.cdea8c\",\"name\":\"Button\",\"pin\":\"7\",\"intype\":\"up\",\"debounce\":\"25\",\"read\":true,\"x\":110,\"y\":120,\"wires\":[[\"d15eae7e.fd4dd\",\"2a039013.a32c1\"]]},{\"id\":\"cd522d0d.3c9f8\",\"type\":\"change\",\"z\":\"77351328.cdea8c\",\"name\":\"change to 1\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"1\",\"tot\":\"str\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":470,\"y\":180,\"wires\":[[\"16d1e7a0.f991b8\"]]}]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 200,
+        "wires": [
+            [
+                "38828451.72ffcc"
+            ]
+        ]
+    },
+    {
+        "id": "38828451.72ffcc",
+        "type": "http request",
+        "z": "b238f718.4070c8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.mediatek.com/mcs/v2/devices/PxsIGX8G8H03/datachannels/Temperature/datapoints",
+        "tls": "",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "414a1af0.078b44",
+                "afb9240b.7a2778"
+            ]
+        ]
+    },
+    {
+        "id": "414a1af0.078b44",
+        "type": "http response",
+        "z": "b238f718.4070c8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 610,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "afb9240b.7a2778",
+        "type": "debug",
+        "z": "b238f718.4070c8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 610,
+        "y": 320,
+        "wires": []
+    }
+]
